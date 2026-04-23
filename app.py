@@ -156,6 +156,16 @@ for rec in recommendations:
 # -------------------------
 st.subheader("Options Table")
 
-st.dataframe(calls[[
+display_df = calls[[
     "strike","lastPrice","impliedVolatility","bs","mispricing"
+]].copy()
+
+display_df.columns = [
+    "Strike",
+    "Market Price",
+    "Implied Volatility",
+    "Black-Scholes Value",
+    "Mispricing"
+]
+st.dataframe(display_df.round(3))
 ]].round(3))

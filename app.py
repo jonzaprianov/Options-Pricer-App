@@ -156,16 +156,13 @@ for rec in recommendations:
 # -------------------------
 st.subheader("Options Table")
 
-display_df = calls[[
-    "strike","lastPrice","impliedVolatility","bs","mispricing"
-]].copy()
+st.dataframe(
+    display_df.style.format({
+        "Market Price": "{:.2f}",
+        "Implied Volatility": "{:.2%}",
+        "Black-Scholes Value": "{:.2f}",
+        "Mispricing": "{:.2f}"
+    }).background_gradient(subset=["Mispricing"], cmap="RdYlGn")
 
-display_df.columns = [
-    "Strike",
-    "Market Price",
-    "Implied Volatility",
-    "Black-Scholes Value",
-    "Mispricing"
-]
 st.dataframe(display_df.round(3))
 ]].round(3))

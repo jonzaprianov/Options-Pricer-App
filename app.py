@@ -47,7 +47,7 @@ r = st.sidebar.slider("Risk-Free Rate (%)", 0.0, 10.0, 4.5)/100
 # -------------------------
 # Load Data
 # -------------------------
-@st.cache_data
+@st.cache_resource
 def load_data(ticker):
     return yf.Ticker(ticker)
 

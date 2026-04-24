@@ -155,7 +155,7 @@ for rec in recommendations:
 # OPTIONS TABLE
 # -------------------------
 st.subheader("Options Table")
-
+st.write("Columns:", calls.columns)
 display_df = calls[[
     "strike",
     "lastPrice",
@@ -211,6 +211,7 @@ else:
     st.warning("⚠️ Trade not attractive after costs")
 
 iv_mean = calls["impliedVolatility"].mean()
+current_rv = rv
 spread = iv_mean - current_rv
 
 st.metric("IV - RV Spread", round(spread, 3))
@@ -221,7 +222,7 @@ if EV > 0:
     score += 1
 if spread > 0.05:
     score += 1
-if percentile > 0.8:
+if ivp > 0.8:
     score += 1
 
 st.metric("Trade Score (0-3)", score)
@@ -256,6 +257,8 @@ else:
 st.subheader("📊 Forward Vol Signal")
 
 # short vs long RV
+hist = ticker.history(period="6mo")
+returns = np.log(hist["Close"] / hist["Close"].shift(1)).dropna()
 rv_short = returns.rolling(10).std() * np.sqrt(252)
 rv_long = returns.rolling(60).std() * np.sqrt(252)
 

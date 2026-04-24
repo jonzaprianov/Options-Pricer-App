@@ -160,7 +160,7 @@ display_df = calls[[
     "strike",
     "lastPrice",
     "impliedVolatility",
-    "bs_value",
+    "bs",
     "mispricing"
 ]].copy()
 

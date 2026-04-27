@@ -1,5 +1,4 @@
 import streamlit as st
-import yfinance as yf
 import pandas as pd
 import numpy as np
 from scipy.stats import norm
@@ -9,6 +8,17 @@ import plotly.express as px
 from plotly.subplots import make_subplots
 import time
 import warnings
+
+import yfinance as yf
+import requests
+
+session = requests.Session()
+session.headers.update({
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+})
+# Monkey-patch yfinance to use this session
+yf.base.requests = session
+
 warnings.filterwarnings("ignore")
 
 st.set_page_config(
